@@ -1,5 +1,7 @@
-<div *ngIf="showsInfo;then content else other_content">here is ignored</div>
-<ng-template #content>
+<div *ngIf="showsInfo;then showsInfo else loadingShows"></div>
+<ng-template #loadingShows>Loading Shows...</ng-template>
+
+<ng-template #showsInfo>
   <div class="table-responsive">
 
     <form style="margin: 10px 15px 10px 15px;">
@@ -63,6 +65,22 @@
           <td>
             <p *ngFor="let artist of show.artists">
               {{artist.name}}
+
+              <span *ngIf="artist.stageTime"
+                class="badge badge-pill badge-primary"
+                style="margin-right: 10px;"
+                title="Stage Time">
+                {{artist.stageTime}}
+              </span>
+
+              <a *ngIf="artist.videoUrl" [attr.href]="artist.videoUrl">
+                <span
+                  class="badge badge-danger"
+                  style="margin-right: 10px;">
+                  Video
+                </span>
+              </a>
+
             </p>
           </td>
           <td>
@@ -94,5 +112,3 @@
     </table>
   </div>
 </ng-template>
-
-<ng-template #other_content>Loading Shows...</ng-template>
