@@ -85,4 +85,17 @@ export class AppComponent implements OnInit {
 
     return results;
   }
+
+  get sortedShows(): Show[] {
+    const results = this.artistFilterShows.sort((lhs: Show, rhs: Show) => {
+      const lhsDate = new Date(lhs.date);
+      const rhsDate = new Date(rhs.date);
+
+      const result = lhsDate.getTime() - rhsDate.getTime();
+
+      return result;
+    });
+
+    return results;
+  }
 }
