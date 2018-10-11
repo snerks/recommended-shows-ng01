@@ -10,8 +10,6 @@ import { ShowsInfo, Show } from "./models";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
-  // title = "recommended-shows-ng01";
-
   showsInfo: ShowsInfo;
 
   artistsSearchTerm?: string;
@@ -30,19 +28,19 @@ export class AppComponent implements OnInit {
       .subscribe(showsInfo => (this.showsInfo = showsInfo));
   }
 
-  get visibleShows(): Show[] {
+  get inDateRangeShows(): Show[] {
     const { shows } = this.showsInfo;
 
     if (this.showPastEvents) {
       return shows;
     }
 
-    const inDateRangeShows = shows.filter(this.visibleShowFilter);
+    const results = shows.filter(this.dateRangeShowFilter);
 
-    return inDateRangeShows;
+    return results;
   }
 
-  visibleShowFilter = (show: Show) => {
+  dateRangeShowFilter = (show: Show) => {
     const currentDateTime = new Date();
 
     let willShowEvent = false;
@@ -62,12 +60,12 @@ export class AppComponent implements OnInit {
   };
 
   get artistFilterShows(): Show[] {
-    const results = this.visibleShows.filter(show => {
+    const results = this.inDateRangeShows.filter(show => {
       if (!this.artistsSearchTerm) {
         return true;
       }
 
-      const showText = show.artists.reduce(
+      const showArtistsText = show.artists.reduce(
         (previousArtistsResult, currentArtist, currentArtistIndex) => {
           const currentArtistText = currentArtist.name;
 
@@ -79,8 +77,9 @@ export class AppComponent implements OnInit {
       );
 
       return (
-        showText.toLowerCase().indexOf(this.artistsSearchTerm.toLowerCase()) >
-        -1
+        showArtistsText
+          .toLowerCase()
+          .indexOf(this.artistsSearchTerm.toLowerCase()) > -1
       );
     });
 

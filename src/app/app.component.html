@@ -1,7 +1,7 @@
-<div *ngIf="showsInfo;then showsInfo else loadingShows"></div>
-<ng-template #loadingShows>Loading Shows...</ng-template>
+<div *ngIf="showsInfo;then showsInfoContent else loadingShowsContent"></div>
+<ng-template #loadingShowsContent>Loading Shows...</ng-template>
 
-<ng-template #showsInfo>
+<ng-template #showsInfoContent>
   <div class="table-responsive">
 
     <form style="margin: 10px 15px 10px 15px;">
@@ -80,7 +80,6 @@
                   Video
                 </span>
               </a>
-
             </p>
           </td>
           <td>
@@ -89,7 +88,6 @@
             <ng-template #venueNoLink>{{show.venue}}</ng-template>
           </td>
           <td>
-            &#160;
             <span *ngIf="show.isSoldOut" class="badge badge-warning"
               style="margin-right: 10px;">
               Sold Out

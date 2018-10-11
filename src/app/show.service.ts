@@ -9,8 +9,10 @@ import { ShowsInfo } from "./models";
   providedIn: "root"
 })
 export class ShowService {
-  private showsInfoUrl =
-    "https://snerks.github.io/recommended-shows-ts01/recommended-shows.json"; // URL to web api
+  // private showsInfoUrl =
+  //   "https://snerks.github.io/recommended-shows-ts01/recommended-shows.json";
+
+  private showsInfoUrl = "https://api.myjson.com/bins/6blgs";
 
   constructor(private http: HttpClient) {}
 
